@@ -30,7 +30,8 @@
 1. 기준일 폴더에 summary.csv를 저장한다 (같은 이름이 있으면 덮어쓰기 전에 묻는다). 컬럼:
    date,stellest_sales_pcs_mtd,monthly_target_pcs,achievement_rate,remaining_pcs,projected_month_end_pcs,stellest_order_pcs_mtd,ordering_accounts_mtd
 2. Notion 「일일 실적 요약」 데이터베이스(https://app.notion.com/p/6163aefcfbde4b159615e719c380e2e9, data source collection://39eaf0a5-f9d8-42e6-8d08-b2d410c4b880)에 기준일 한 줄을 저장한다.
-   - 먼저 같은 기준일 행이 있는지 조회한다. 있으면 그 행을 갱신하고, 없으면 새 행을 추가한다 (중복 행 금지, 삭제 금지).
+   - 먼저 같은 기준일 행이 있는지 조회한다. 조회는 반드시 **보기(view) 모드**로 한다: 도구 notion-query-data-sources에 mode="view", view_url="https://app.notion.com/p/6163aefcfbde4b159615e719c380e2e9?v=3fa095a3-bd59-81da-a795-000ca00cbf49"를 넘긴다 (기준일 내림차순 보기). SQL·rows 모드는 Notion 사용량 한도에 걸릴 수 있으니 쓰지 않는다.
+   - 같은 기준일 행이 있으면 그 행을 갱신하고, 없으면 새 행을 추가한다 (중복 행 금지, 삭제 금지). 조회가 한도 때문에 실패하면 notion-fetch로 데이터베이스를 열어 확인하거나, 확인이 안 되면 새 행을 추가하지 말고 나에게 묻는다.
    - 속성: 이름 = "YYYY-MM-DD Stellest MTD", 기준일 = 데이터 기준일(날짜), MTD 순매출, 월 목표, 달성률 (0.2905처럼 비율), 잔여 수량, 월말 예상, 주문 수량, 오더링 어카운트 (모두 숫자), 메모 = 특이사항 한 줄.
    - 출근 대시보드(https://claude.ai/artifact/7VqUbbsUgP3rkLxX2WBHx8)가 이 표의 가장 최근 기준일 행을 읽는다. 원본 xlsx 내용은 Notion에 올리지 않고 위 요약 숫자만 올린다.
 
